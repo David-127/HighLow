@@ -14,8 +14,15 @@ namespace HighLow
         //konstruktor
         public Player(string name, int Score)
         {
-
+            this.name = name;
+            this.Score = Score;
         }
         //metoder
+        public void ShowData()
+        {
+            Console.WriteLine("Name" + name);
+            Console.WriteLine("Score" + Score);
+
+        }
     }
 }
