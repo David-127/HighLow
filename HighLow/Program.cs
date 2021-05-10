@@ -7,15 +7,15 @@ namespace HighLow
     public enum value
     {
         Ace,
-        Two,
-        Three,
-        Four,
+        Two ,
+        Three ,
+        Four ,
         Five,
         Six,
-        Seven,
-        Eight,
-        Nine,
-        Ten,
+        Seven ,
+        Eight ,
+        Nine ,
+        Ten ,
         Jack,
         Queen,
         King
@@ -28,23 +28,82 @@ namespace HighLow
         Diamond,
         Club
     }
+
     class Program
     {
+      
         static List<Card> deck = new List<Card>();
         static void Main(string[] args)
         {
             
-
-
             bool playing = true;
-            while (playing == true)
-            {
-                int points = 0;
-                Console.Clear();
-                drawDeck();
-                drawCard();
-                cardChooser();
+            int points = 0;
+             while (playing ==true)
+             {
+              
+            Console.Clear();
+               drawDeck();
+               var card1 = drawCard();
+                try
+                {
+                    Console.WriteLine("TYPE 1 to select LOW");
+                    Console.WriteLine("TYPE 2 to HIGH");
+                    Console.WriteLine("TYPE 3 to END GAME");
+
+
+                    int choose = int.Parse(Console.ReadLine());
+
+                    switch (choose)
+                    {
+
+                        case 1:
+                            
+                            var newCard = drawCard();
+                            if (newCard > card1)
+                            {
+                                Console.WriteLine("Wrong no Points");
+                                Console.ReadLine();
+                            }
+                            else
+                            {
+                                points++;
+                            }
+                            break;
+
+
+                        case 2:
+                            var newCard2 = drawCard();
+                            if (newCard2 < card1)
+                            {
+                                Console.WriteLine("Wrong no Points");
+                                Console.ReadLine();
+                            }
+                            else
+                            {
+                                points++;
+                            }
+                            break;
+
+                        case 3:
+                            Environment.Exit(0);
+                            break;
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Incorrect input try again");
+                    Console.ReadLine();
+                }
+
+                if(playing == false)
+                {
+                    Console.WriteLine("Your Score Was: " + points + "\n  PLEASE enter your name!");
+                    Console.ReadLine();
+                }
+
+                Console.WriteLine(deck.Count);
                 Console.ReadLine();
+
             }
 
 
@@ -60,6 +119,7 @@ namespace HighLow
                 deck.Add(new Card((value)i, suit.Diamond));
                 deck.Add(new Card((value)i, suit.Hearts));
                 deck.Add(new Card((value)i, suit.Spades));
+
 
             }
         }
@@ -78,30 +138,11 @@ namespace HighLow
 
         }
 
-        static void cardChooser()
-        {
-            Console.WriteLine("Press 1 to select LOW");
-            Console.WriteLine("Press 2 to HIGH");
-            Console.WriteLine("Press 3 to END GAME");
-                var chooseCard = 0;
 
-            switch (chooseCard)
-            {
-
-                case 0:
-
-                    break;
-
-                case 1:
-                    break;
-
-                case 2:
-                        Environment.Exit(0);
-                    break;
-            }
-            }
+        
+           }
 
         }
 
-    }
+    
 
