@@ -33,131 +33,157 @@ namespace HighLow
     {
 
         static List<Card> deck = new List<Card>();
+       static  List<Player> Scores = new List<Player>(); 
         static void Main(string[] args)
         {
-
+            var playerList = Scores;
+            Console.Clear();
             bool playing = true;
+            while (playing == true)
+            {
             int points = 0;
             drawDeck();
 
-            
-                
-
-            for (int j = 0; j< 2; j++)
-            {
 
 
 
-                for (int i = 0; i < 13; i++)
+                for (int j = 0; j < 2; j++)
                 {
 
-                    Console.Clear();
-                    value card1 = drawCard();
-                    try
+
+
+                    for (int i = 0; i < 13; i++)
                     {
-                        int choose;
-                        while (true)
+
+                        Console.Clear();
+                        value card1 = drawCard();
+                        try
                         {
-
-
-
-                            Console.WriteLine("Total points: " + points);
-                            Console.WriteLine("TYPE 1 to select LOW");
-                            Console.WriteLine("TYPE 2 to HIGH");
-                            Console.WriteLine("TYPE 3 to END GAME");
-
-                            choose = int.Parse(Console.ReadLine());
-
-                            if (choose > 3 || choose < 1)
+                            int choose;
+                            while (true)
                             {
-                                Console.Clear();
-                                Console.WriteLine("Please choose a valid option");
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
 
 
 
-                        switch (choose)
-                        {
+                                Console.WriteLine("Total points: " + points);
+                                Console.WriteLine("TYPE 1 to select LOW");
+                                Console.WriteLine("TYPE 2 to HIGH");
+                                Console.WriteLine("TYPE 3 to END GAME");
 
-                            case 1:
+                                choose = int.Parse(Console.ReadLine());
 
-                                var newCard = drawCard();
-                                if (newCard > card1)
+                                if (choose > 3 || choose < 1)
                                 {
-                                    Console.WriteLine("Wrong no Points");
-                                }
-                                else if(newCard == card1)
-                                {
-                                    Console.WriteLine("You got pair , You lose");
-                                    Console.ReadLine();
-                                    break;
-                                }
-                                else if(newCard == value.Ace)
-                                {
-                                    Console.WriteLine("ACE both LOW and HIGH");
-                                    Console.ReadLine();
-                                    points++;
+                                    Console.Clear();
+                                    Console.WriteLine("Please choose a valid option");
                                 }
                                 else
                                 {
-                                    points++;
-                                }
-                                card1 = newCard;
-                                break;
-
-
-                            case 2:
-                                var newCard2 = drawCard();
-                                if (newCard2 < card1)
-                                {
-                                    Console.WriteLine("Wrong no Points");
-                                }
-                                else if(newCard2 == card1)
-                                {
-                                    Console.WriteLine("You got pair , You lose");
-                                    Console.ReadLine();
                                     break;
                                 }
-                                else if (newCard2 == value.Ace)
-                                {
-                                    Console.WriteLine("ACE both LOW and HIGH");
-                                    Console.ReadLine();
-                                    points++;
-                                }
-                                else
-                                {
-                                    points++;
-                                    Console.WriteLine("Total points: " + points);
-                                }
-                                card1 = newCard2;
-                                break;
+                            }
 
-                            case 3:
-                                Environment.Exit(0);
-                                break;
+
+
+                            switch (choose)
+                            {
+
+                                case 1:
+
+                                    var newCard = drawCard();
+                                    if (newCard > card1)
+                                    {
+                                        Console.WriteLine("Wrong no Points");
+                                    }
+                                    else if (newCard == card1)
+                                    {
+                                        Console.WriteLine("You got pair , You lose");
+                                        Console.ReadLine();
+                                        break;
+                                    }
+                                    else if (newCard == value.Ace)
+                                    {
+                                        Console.WriteLine("ACE both LOW and HIGH");
+                                        Console.ReadLine();
+                                        points++;
+                                    }
+                                    else
+                                    {
+                                        points++;
+                                    }
+                                    card1 = newCard;
+                                    break;
+
+
+                                case 2:
+                                    var newCard2 = drawCard();
+                                    if (newCard2 < card1)
+                                    {
+                                        Console.WriteLine("Wrong no Points");
+                                    }
+                                    else if (newCard2 == card1)
+                                    {
+                                        Console.WriteLine("You got pair , You lose");
+                                        Console.ReadLine();
+                                        break;
+                                    }
+                                    else if (newCard2 == value.Ace)
+                                    {
+                                        Console.WriteLine("ACE both LOW and HIGH");
+                                        Console.ReadLine();
+                                        points++;
+                                    }
+                                    else
+                                    {
+                                        points++;
+                                        Console.WriteLine("Total points: " + points);
+                                    }
+                                    card1 = newCard2;
+                                    break;
+
+                                case 3:
+                                    Environment.Exit(0);
+                                    break;
+                            }
+
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Incorrect input try again");
                         }
 
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Incorrect input try again");
-                    }
 
+                    }
+                    Console.WriteLine("\n\nTotal points:" + points + "\n PRESS ENTER");
+                    Console.ReadLine();
 
                 }
-                Console.WriteLine("\n\nTotal points: " + points);
-                Console.ReadLine();
+                Console.WriteLine("\n\nGame finishied, total point: " + points);
+                Console.WriteLine("Please ENTER YOUR NAME:");
+                string name = Console.ReadLine();
+                playing = false;
 
-            }
-            Console.WriteLine("\n\nGame finishied, total point: " + points);
-            Console.WriteLine("Please ENTER YOUR NAME:");
-            string name = Console.ReadLine();
-            int score = points;
+                Scores.Add(new Player (name, points));
+
+                Scores.Sort(delegate (Player x, Player y)
+
+                {
+                    return y.getPoints().CompareTo(x.getPoints());
+                });
+                Console.Clear();
+                Console.WriteLine("Scores");
+
+                int count = 1;
+                foreach (Player p in Scores)
+                {
+                    Console.Write(count + ": ");
+                    p.ShowData();
+                    count += 1;
+                }
+                Console.WriteLine("PRESS ENTER TO RESTART");
+                Console.ReadLine();
+                playing = true;
+            }          
         }
 
 
@@ -193,7 +219,6 @@ namespace HighLow
             return cardVal;
 
         }
-
 
         
            }

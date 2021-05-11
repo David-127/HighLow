@@ -9,20 +9,25 @@ namespace HighLow
     class Player
     {
         //fält
-        string name;
-        int Score;
+         string name;
+         int points;
         //konstruktor
-        public Player(string name, int Score)
+        public Player(string name, int points)
         {
             this.name = name;
-            this.Score = Score;
+            this.points = points;
         }
         //metoder
         public void ShowData()
         {
-            Console.WriteLine("Name" + name);
-            Console.WriteLine("Score" + Score);
-            Console.ReadLine();
+            Console.WriteLine("Name: " + name);
+            Console.WriteLine("Score:" + points);
+
+        }
+
+        public int getPoints()
+        {
+            return points;
         }
     }
 }
