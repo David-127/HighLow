@@ -22,7 +22,7 @@ namespace HighLow
         {
             Console.WriteLine("Name" + name);
             Console.WriteLine("Score" + Score);
-
+            Console.ReadLine();
         }
     }
 }
